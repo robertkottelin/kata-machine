@@ -1,4 +1,6 @@
 export default function bs_list(haystack: number[], needle: number): boolean {
+
+    // logn
     let low = 0;
     let high = haystack.length - 1;
 
