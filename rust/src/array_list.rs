@@ -6,7 +6,7 @@ pub struct ArrayList<T> {
     items: VecDeque<T>,
 }
 
-impl<T> ArrayList<T> {
+impl<T: PartialEq> ArrayList<T> {
     pub fn new() -> Self {
         Self {
             length: 0,
@@ -34,14 +34,14 @@ impl<T> ArrayList<T> {
     }
 
     pub fn remove(&mut self, item: T) -> Option<T> {
-        let idx = self.items.iter().position(|x| x == item);
+        let idx = self.items.iter().position(|x| *x == item);
         if let None = idx {
             return None;
         }
 
-        self.items.remove(idx.unwrap());
+        let removed_item = self.items.remove(idx.unwrap());
         self.length -= 1;
-        Some(item)
+        removed_item
     }
 
     pub fn get(&self, idx: usize) -> Option<&T> {
@@ -59,6 +59,6 @@ impl<T> ArrayList<T> {
 
         let item = self.items.remove(idx);
         self.length -= 1;
-        Some(item)
+        item
     }
 }
