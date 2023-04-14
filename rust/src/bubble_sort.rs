@@ -1,6 +1,5 @@
 // if xi <= xi+1 == true, the array is sorted 
 
-// RUST
 fn bubble_sort(arr: &mut Vec<i32>) {
     // Loop through the entire array.
     for i in 0..arr.len() {

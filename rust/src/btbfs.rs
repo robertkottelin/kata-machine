@@ -1,22 +1,24 @@
+pub struct BinaryNode<T> {
+    pub value: T,
+    pub left: Option<Box<BinaryNode<T>>>,
+    pub right: Option<Box<BinaryNode<T>>>,
+}
 
+pub fn bfs(head: &BinaryNode<i32>, needle: i32) -> bool {
+    let mut q: Vec<Option<&BinaryNode<i32>>> = vec![Some(head)];
 
-export default function bfs(head: BinaryNode<number>, needle: number): boolean | undefined {
-    const q: (BinaryNode<number> | null)[] = [head];
+    while !q.is_empty() {
+        let curr = q.remove(0);
 
-    while (q.length) {
-        const curr = q.shift() as BinaryNode<number> | undefined | null;
+        if let Some(node) = curr {
+            if node.value == needle {
+                return true;
+            }
 
-        if (!curr) {
-            continue;
+            q.push(node.left.as_ref());
+            q.push(node.right.as_ref());
         }
-
-        if (curr.value === needle) {
-            return true;
-        }
-
-        q.push(curr.left);
-        q.push(curr.right);
     }
 
-    return false;
+    false
 }
