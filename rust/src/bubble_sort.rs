@@ -14,3 +14,38 @@ fn bubble_sort(arr: &mut Vec<i32>) {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_bubble_sort() {
+        let mut arr = vec![5, 3, 8, 4, 2, 7, 1, 6];
+        let sorted_arr = vec![1, 2, 3, 4, 5, 6, 7, 8];
+
+        bubble_sort(&mut arr);
+
+        assert_eq!(arr, sorted_arr);
+    }
+
+    #[test]
+    fn test_bubble_sort_empty() {
+        let mut arr: Vec<i32> = vec![];
+        let sorted_arr: Vec<i32> = vec![];
+
+        bubble_sort(&mut arr);
+
+        assert_eq!(arr, sorted_arr);
+    }
+
+    #[test]
+    fn test_bubble_sort_already_sorted() {
+        let mut arr = vec![1, 2, 3, 4, 5, 6, 7, 8];
+        let sorted_arr = vec![1, 2, 3, 4, 5, 6, 7, 8];
+
+        bubble_sort(&mut arr);
+
+        assert_eq!(arr, sorted_arr);
+    }
+}
