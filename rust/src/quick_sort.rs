@@ -1,6 +1,6 @@
 fn qs(arr: &mut Vec<i32>, lo: usize, hi: usize) {
     if lo < hi {
-        let pivot_idx = partition(arr, lo, hi);
+        let pivot_idx = partition(arr, lo, hi); 
         if pivot_idx > 0 {
             qs(arr, lo, pivot_idx - 1);
         }
@@ -9,29 +9,32 @@ fn qs(arr: &mut Vec<i32>, lo: usize, hi: usize) {
 }
 
 // [2,4,3,5]
-
 fn partition(arr: &mut Vec<i32>, _lo: usize, hi: usize) -> usize {
     let pivot = arr[hi];
+    println!("pivot: {}", pivot);
     let mut i = _lo;
     for j in _lo..hi {
         if arr[j] < pivot {
-            arr.swap(i, j);
+            arr.swap(i, j);            
             i += 1;
         }
     }
-
+    println!("before swap: {:?}", arr);
     arr.swap(hi, i);
+    println!("after swap: {:?}", arr);
 
     i
 }
 
 pub fn quick_sort(arr: &mut Vec<i32>) {
+    println!("Starting");
     if arr.is_empty() {
         return;
     }
     qs(arr, 0, arr.len() - 1);
+    println!("After sort: {:?}", arr);
+    println!("Ending");
 }
-
 
 #[cfg(test)]
 mod tests {
