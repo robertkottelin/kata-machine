@@ -11,5 +11,12 @@ public class Main {
         
         System.out.println("Sorted array:");
         System.out.println(Arrays.toString(arr));
+
+        int[] haystack = {4, 2, 9, 6, 1, 8, 3};
+        int needle = 6;
+    
+        boolean found = LinearSearchList.linearSearch(haystack, needle);
+        //print found
+        System.out.println(found);
     }
 }
