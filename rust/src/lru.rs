@@ -1,7 +1,12 @@
+use std::rc::Rc;
+use std::cell::RefCell;
+use std::collections::HashMap;
+
+#[derive(Clone)]
 pub struct Node<T> {
     pub value: T,
-    pub next: Option<Box<Node<T>>>,
-    pub prev: Option<Box<Node<T>>>,
+    pub next: Option<Rc<RefCell<Node<T>>>>,
+    pub prev: Option<Rc<RefCell<Node<T>>>>,
 }
 
 fn create_node<V>(value: V) -> Node<V> {
@@ -19,10 +24,10 @@ where
 {
     capacity: usize,
     length: usize,
-    head: Option<Box<Node<V>>>,
-    tail: Option<Box<Node<V>>>,
-    lookup: std::collections::HashMap<K, Box<Node<V>>>,
-    reverse_lookup: std::collections::HashMap<Box<Node<V>>, K>,
+    head: Option<Rc<RefCell<Node<V>>>>,
+    tail: Option<Rc<RefCell<Node<V>>>>,
+    lookup: HashMap<K, Rc<RefCell<Node<V>>>>,
+    reverse_lookup: HashMap<Rc<RefCell<Node<V>>>, K>,
 }
 
 impl<K, V> LRU<K, V>

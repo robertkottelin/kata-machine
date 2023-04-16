@@ -1,3 +1,4 @@
+#[derive(Clone)]
 pub struct Node<T> {
     value: T,
     next: Option<Box<Node<T>>>,
@@ -10,7 +11,7 @@ pub struct DoublyLinkedList<T> {
     tail: Option<Box<Node<T>>>,
 }
 
-impl<T> DoublyLinkedList<T> {
+impl<T: Clone> DoublyLinkedList<T> {
     pub fn new() -> Self {
         DoublyLinkedList {
             length: 0,
@@ -117,11 +118,11 @@ impl<T> DoublyLinkedList<T> {
     }
 
     pub fn remove_at(&mut self, idx: usize) -> Option<T> {
-        let node = self.get_node_at(idx)?;
+        let node = self.get_node_at(idx)?.take();
         self.remove_node(node)
     }
 
-    fn remove_node(&mut self, node: &mut Node<T>) -> Option<T> {
+    fn remove_node(&mut self, mut node: Box<Node<T>>) -> Option<T> {
         self.length -= 1;
 
         if let Some(ref mut prev) = node.prev.as_mut() {
@@ -138,20 +139,20 @@ impl<T> DoublyLinkedList<T> {
         if node.next.is_none() {
             self.tail = node.prev.take();
         }
-    
+
         node.prev = None;
         node.next = None;
-    
-        Some(node.value.clone())
+
+        Some(node.value)
     }
-    
-    fn get_node_at(&mut self, idx: usize) -> Option<&mut Node<T>> {
+
+    fn get_node_at(&mut self, idx: usize) -> Option<&mut Box<Node<T>>> {
         let mut curr = self.head.as_mut();
-    
+
         for _ in 0..idx {
             curr = curr?.next.as_mut();
         }
-    
+
         curr
     }
-}    
+}

@@ -4,35 +4,37 @@ pub struct MinHeap {
 }
 
 impl MinHeap {
-    pub fn new() -> MinHeap {
+    pub fn new() -> Self {
         MinHeap {
             data: Vec::new(),
             length: 0,
         }
     }
 
+    // Big O: logn
     pub fn insert(&mut self, value: i32) {
         self.data.push(value);
         self.heapify_up(self.length);
         self.length += 1;
     }
 
-    pub fn delete(&mut self) -> Result<i32, &'static str> {
+    // Big O: logn
+    pub fn delete(&mut self) -> i32 {
         if self.length == 0 {
-            return Err("Heap is empty");
+            panic!("Heap is empty");
         }
         let out = self.data[0];
         self.length -= 1;
 
         if self.length == 0 {
             self.data.clear();
-            return Ok(out);
+            return out;
         }
 
         self.data[0] = self.data[self.length];
         self.heapify_down(0);
 
-        Ok(out)
+        return out;
     }
 
     fn heapify_down(&mut self, idx: usize) {
@@ -74,15 +76,19 @@ impl MinHeap {
         }
     }
 
-    fn parent(idx: usize) -> usize {
+    fn parent(&self, idx: usize) -> usize {
         (idx - 1) / 2
     }
 
-    fn left_child(idx: usize) -> usize {
+    fn left_child(&self, idx: usize) -> usize {
         2 * idx + 1
     }
 
-    fn right_child(idx: usize) -> usize {
+    fn right_child(&self, idx: usize) -> usize {
         2 * idx + 2
+    }
+
+    fn swap(&mut self, idx1: usize, idx2: usize) {
+        self.data.swap(idx1, idx2);
     }
 }

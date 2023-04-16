@@ -15,8 +15,12 @@ pub fn bfs(head: &BinaryNode<i32>, needle: i32) -> bool {
                 return true;
             }
 
-            q.push(node.left.as_ref());
-            q.push(node.right.as_ref());
+            if let Some(left) = &node.left {
+                q.push(Some(left));
+            }
+            if let Some(right) = &node.right {
+                q.push(Some(right));
+            }
         }
     }
 
