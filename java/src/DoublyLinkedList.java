@@ -155,7 +155,6 @@ public class DoublyLinkedList<T> {
             head = node.next;
         }
 
-        if (node == tail
         if (node == tail) {
             tail = node.prev;
         }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DijkstraLift {
+public class DijkstraList {
 
     public static class Edge {
         int to;

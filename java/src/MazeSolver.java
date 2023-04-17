@@ -2,15 +2,16 @@ package src;
 
 import java.util.ArrayList;
 import java.util.List;
+import src.Point;
 
-public class Point {
-    int x, y;
+// public class Point {
+//     int x, y;
 
-    public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-}
+//     public Point(int x, int y) {
+//         this.x = x;
+//         this.y = y;
+//     }
+// }
 
 public class MazeSolver {
     private static final int[][] dir = {

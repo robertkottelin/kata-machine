@@ -3,7 +3,7 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InOrderSearch {
+public class BTPreOrderSearch {
 
     public static class BinaryNode<T> {
         T value;

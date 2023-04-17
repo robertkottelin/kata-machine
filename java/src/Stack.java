@@ -1,28 +1,30 @@
 package src;
 
+import src.StackNode;
+
 // last in, first out
 
-public class Node<T> {
-    T value;
-    Node<T> prev;
+// public class Node<T> {
+//     T value;
+//     Node<T> prev;
 
-    public Node(T value) {
-        this.value = value;
-        this.prev = null;
-    }
-}
+//     public Node(T value) {
+//         this.value = value;
+//         this.prev = null;
+//     }
+// }
 
 public class Stack<T> {
     public int length;
-    private Node<T> head;
+    private StackNode<T> head;
 
-    public Stack() {
+    public StackNode() {
         this.head = null;
         this.length = 0;
     }
 
     public void push(T item) {
-        Node<T> node = new Node<>(item);
+        StackNode<T> node = new StackNode<>(item);
 
         this.length++;
         if (this.head == null) {

@@ -2,7 +2,7 @@ package src;
 
 import java.util.*;
 
-public class BreadthFirstSearch {
+public class BFSGraphMatrix {
     public static List<Integer> bfs(int[][] graph, int source, int needle) {
         boolean[] seen = new boolean[graph.length];
         int[] prev = new int[graph.length];

@@ -1,6 +1,6 @@
 package src;
 
-public class BinaryTreeDFS {
+public class DFSOnBinaryTree {
 
     public static class BinaryNode<T> {
         T value;

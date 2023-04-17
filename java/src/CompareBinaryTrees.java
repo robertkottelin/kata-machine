@@ -1,6 +1,6 @@
 package src;
 
-public class BinaryTreeComparison {
+public class CompareBinaryTrees {
 
     public static class BinaryNode<T> {
         T value;
