@@ -43,3 +43,7 @@ function drawPath(data: string[], path: Point[]) {
     return data2.map(d => d.join(''));
 }
 
+function expect(arg0: string[]) {
+    throw new Error("Function not implemented.");
+}
+

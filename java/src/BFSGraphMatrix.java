@@ -9,7 +9,8 @@ public class BFSGraphMatrix {
         Arrays.fill(prev, -1);
 
         seen[source] = true;
-        Queue<Integer> q = new LinkedList<>();
+        LinkedList<Integer> q = new LinkedList<Integer>();
+
         q.add(source);
 
         while (!q.isEmpty()) {
@@ -35,7 +36,7 @@ public class BFSGraphMatrix {
         }
 
         // build the path backwards
-        List<Integer> out = new ArrayList<>();
+        List<Integer> out = new ArrayList<Integer>();
         int curr = needle;
 
         while (prev[curr] != -1) {

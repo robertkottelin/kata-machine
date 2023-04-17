@@ -9,6 +9,13 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "src.Main",
+            "projectName": "data-structures-algorithms_9b1f4707"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "src.Main",
             "projectName": "data-structures-algorithms_ab941c95"
         },
         {

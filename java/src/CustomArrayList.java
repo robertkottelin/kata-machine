@@ -2,11 +2,11 @@ package src;
 
 import java.lang.reflect.Array;
 
-public class ArrayList<T> {
+public class CustomArrayList<T> {
     private int length;
     private T[] items;
 
-    public ArrayList(Class<T> clazz) {
+    public CustomArrayList(Class<T> clazz) {
         this.length = 0;
         this.items = (T[]) Array.newInstance(clazz, 0);
     }

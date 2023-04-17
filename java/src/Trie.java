@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TrieNode {
-    boolean isEndOfWord;
-    Map<String, TrieNode> children;
+// public class TrieNode {
+//     boolean isEndOfWord;
+//     Map<String, TrieNode> children;
 
-    public TrieNode() {
-        isEndOfWord = false;
-        children = new HashMap<>();
-    }
-}
+//     public TrieNode() {
+//         isEndOfWord = false;
+//         children = new HashMap<>();
+//     }
+// }
 
 public class Trie {
     private TrieNode root;

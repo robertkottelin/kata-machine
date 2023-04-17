@@ -18,7 +18,7 @@ public class Stack<T> {
     public int length;
     private StackNode<T> head;
 
-    public StackNode() {
+    public void StackNode() {
         this.head = null;
         this.length = 0;
     }
@@ -38,12 +38,12 @@ public class Stack<T> {
     public T pop() {
         this.length = Math.max(0, this.length - 1);
         if (this.length == 0) {
-            Node<T> head = this.head;
+            StackNode<T> head = this.head;
             this.head = null;
             return head != null ? head.value : null;
         }
 
-        Node<T> head = this.head;
+        StackNode<T> head = this.head;
         this.head = head.prev;
 
         return head.value;

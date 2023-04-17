@@ -1,8 +1,11 @@
 package src;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TrieNode {
     boolean isEndOfWord;
-    CustomMap<String, TrieNode> children;
+    Map<String, TrieNode> children;
 
     public TrieNode() {
         isEndOfWord = false;

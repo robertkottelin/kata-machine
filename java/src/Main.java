@@ -18,5 +18,19 @@ public class Main {
         boolean found = LinearSearchList.linearSearch(haystack, needle);
         //print found
         System.out.println(found);
+
+        String[] maze = new String[] {
+            "xxxxxxxxxx x",
+            "x        x x",
+            "x        x x",
+            "x xxxxxxxx x",
+            "x          x",
+            "x xxxxxxxxxx",
+        };
+   
+        var start = new Point(10, 0);
+        var end = new Point(1, 5);
+        var result = MazeSolver.solve(maze, "x", start, end);
+        System.out.println(result);
     }
 }
