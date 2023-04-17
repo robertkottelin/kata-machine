@@ -13,7 +13,7 @@ import java.util.Comparator;
 //     }
 // }
 
-public class PriorityQueue<T> {
+public class PriorityQueue<T extends Comparable<T>> {
     private int length;
     private Node<T> head;
     private Comparator<T> comparator;

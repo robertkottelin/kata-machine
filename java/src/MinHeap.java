@@ -90,9 +90,9 @@ public class MinHeap {
         return 2 * idx + 2;
     }
 
-    private void swap(int idx1, int idx2) {
-        int temp = this.data[idx1];
-        this.data[idx1] = this.data[idx2];
-        this.data[idx2] = temp;
-    }
+    // private void swap(int idx1, int idx2) {
+    //     int temp = this.data[idx1];
+    //     this.data[idx1] = this.data[idx2];
+    //     this.data[idx2] = temp;
+    // }
 }
