@@ -12,7 +12,7 @@ public class CustomArrayList<T> {
     }
 
     void prepend(T item) {
-        T[] newItems = (T[]) Array.newInstance(item.getClass(), length + 1);
+        T[] newItems = (T[]) Array.newInstance(items.getClass().getComponentType(), length + 1);
         System.arraycopy(items, 0, newItems, 1, length);
         newItems[0] = item;
         items = newItems;
@@ -24,7 +24,7 @@ public class CustomArrayList<T> {
             throw new RuntimeException("Index out of bounds");
         }
 
-        T[] newItems = (T[]) Array.newInstance(item.getClass(), length + 1);
+        T[] newItems = (T[]) Array.newInstance(items.getClass().getComponentType(), length + 1);
         System.arraycopy(items, 0, newItems, 0, idx);
         System.arraycopy(items, idx, newItems, idx + 1, length - idx);
         newItems[idx] = item;
@@ -33,7 +33,7 @@ public class CustomArrayList<T> {
     }
 
     void append(T item) {
-        T[] newItems = (T[]) Array.newInstance(item.getClass(), length + 1);
+        T[] newItems = (T[]) Array.newInstance(items.getClass().getComponentType(), length + 1);
         System.arraycopy(items, 0, newItems, 0, length);
         newItems[length] = item;
         items = newItems;
@@ -46,7 +46,7 @@ public class CustomArrayList<T> {
             return null;
         }
 
-        T[] newItems = (T[]) Array.newInstance(item.getClass(), length - 1);
+        T[] newItems = (T[]) Array.newInstance(items.getClass().getComponentType(), length - 1);
         System.arraycopy(items, 0, newItems, 0, idx);
         System.arraycopy(items, idx + 1, newItems, idx, length - idx - 1);
         items = newItems;
@@ -68,7 +68,7 @@ public class CustomArrayList<T> {
         }
 
         T removedItem = items[idx];
-        T[] newItems = (T[]) Array.newInstance(removedItem.getClass(), length - 1);
+        T[] newItems = (T[]) Array.newInstance(items.getClass().getComponentType(), length - 1);
         System.arraycopy(items, 0, newItems, 0, idx);
         System.arraycopy(items, idx + 1, newItems, idx, length - idx - 1);
         items = newItems;
