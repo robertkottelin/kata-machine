@@ -65,4 +65,15 @@ public class Queue<T> {
     public T peek() {
         return this.head != null ? this.head.value : null;
     }
+
+    public void add(int source) {
+    }
+
+    public boolean isEmpty() {
+        return false;
+    }
+
+    public int poll() {
+        return 0;
+    }
 }
