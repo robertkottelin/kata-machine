@@ -1,58 +1,63 @@
+package src;
+import java.util.ArrayList;
+import java.util.List;
 
-const dir = [
-    [-1, 0], // left
-    [0, -1], // up
-    [1, 0], // right
-    [0, 1], // down
-]
+public class Point {
+    int x, y;
 
-function walk(maze: string[], wall: string, curr: Point, end: Point, seen: boolean[][], path: Point[]): boolean {
-    // base case
-    if (curr.x < 0 || curr.x >= maze[0].length || curr.y < 0 || curr.y >= maze.length) {
-        return false;
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
-
-    // are we on a wall
-    if (maze[curr.y][curr.x] === wall) {
-        return false;
-    }
-
-    // are we at the end
-    if (curr.x === end.x && curr.y === end.y) {
-        path.push(end);
-        return true;
-    }
-
-    // have we seen this point before
-    if (seen[curr.y][curr.x]) {
-        return false;
-    }
-
-    // 3 recurse
-    // pre
-    seen[curr.y][curr.x] = true;
-    path.push(curr);
-    // recurse
-    for (let i = 0; i < dir.length; ++i) {
-        const [x, y] = dir[i];
-        if (walk(maze, wall, {x: curr.x + x, y: curr.y + y}, end, seen, path)) {
-            return true;
-        };
-    }
-    // post
-    path.pop();
-
-    return false;
 }
 
-export default function solve(maze: string[], wall: string, start: Point, end: Point): Point[] {
-    const seen: boolean[][] = [];
-    const path: Point[] = [];
+public class MazeSolver {
+    private static final int[][] dir = {
+        {-1, 0}, // left
+        {0, -1}, // up
+        {1, 0},  // right
+        {0, 1},  // down
+    };
 
-    for (let i = 0; i < maze.length; ++i) {
-        seen.push(new Array(maze[0].length).fill(false));
+    private static boolean walk(String[] maze, String wall, Point curr, Point end, boolean[][] seen, List<Point> path) {
+        if (curr.x < 0 || curr.x >= maze[0].length() || curr.y < 0 || curr.y >= maze.length) {
+            return false;
+        }
+
+        if (maze[curr.y].charAt(curr.x) == wall.charAt(0)) {
+            return false;
+        }
+
+        if (curr.x == end.x && curr.y == end.y) {
+            path.add(end);
+            return true;
+        }
+
+        if (seen[curr.y][curr.x]) {
+            return false;
+        }
+
+        seen[curr.y][curr.x] = true;
+        path.add(curr);
+
+        for (int i = 0; i < dir.length; ++i) {
+            int x = dir[i][0];
+            int y = dir[i][1];
+            if (walk(maze, wall, new Point(curr.x + x, curr.y + y), end, seen, path)) {
+                return true;
+            }
+        }
+
+        path.remove(path.size() - 1);
+
+        return false;
     }
 
-    walk(maze, wall, start, end, seen, path);
-    return path;
+    public static List<Point> solve(String[] maze, String wall, Point start, Point end) {
+        boolean[][] seen = new boolean[maze.length][maze[0].length()];
+        List<Point> path = new ArrayList<>();
+
+        walk(maze, wall, start, end, seen, path);
+        return path;
+    }
 }

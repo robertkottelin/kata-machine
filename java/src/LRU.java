@@ -1,105 +1,101 @@
-type Node<T> = {
-    value: T,
-    next?: Node<T>,
-    prev?: Node<T>,
+package src;
+import java.util.HashMap;
+import java.util.Map;
+
+class Node<T> {
+    T value;
+    Node<T> next;
+    Node<T> prev;
 }
 
-function createNode<V>(value: V): Node<V> {
-    return {value};
-}
+public class LRU<K, V> {
+    private int length;
+    private Node<V> head;
+    private Node<V> tail;
 
-export default class LRU<K, V> {
-    private length: number;
-    private head?: Node<V>;
-    private tail?: Node<V>;
+    private Map<K, Node<V>> lookup;
+    private Map<Node<V>, K> reverseLookup;
 
-    private lookup: Map<K, Node<V>>;
-    private reverseLookup: Map<Node<V>, K>;
+    private final int capacity;
 
-    constructor(private capacity: number = 10) {
+    public LRU(int capacity) {
+        this.capacity = capacity;
         this.length = 0;
-        this.head = this.tail = undefined;
-        this.lookup = new Map<K, Node<V>>();
-        this.reverseLookup = new Map<Node<V>, K>();
+        this.head = null;
+        this.tail = null;
+        this.lookup = new HashMap<>();
+        this.reverseLookup = new HashMap<>();
     }
 
-    update(key: K, value: V): void {
-
-        // does it exist?
-        let node = this.lookup.get(key);
-        if (!node) {
-            node = createNode(value);
-            this.length++;
-            this.prepend(node);
-            this.trimCache();
-            this.lookup.set(key, node);
-            this.reverseLookup.set(node, key);
+    public void update(K key, V value) {
+        Node<V> node = lookup.get(key);
+        if (node == null) {
+            node = new Node<>();
+            node.value = value;
+            length++;
+            prepend(node);
+            trimCache();
+            lookup.put(key, node);
+            reverseLookup.put(node, key);
         } else {
-            this.detach(node);
-            this.prepend(node);
+            detach(node);
+            prepend(node);
             node.value = value;
         }
-        // if it doesn't we need to insert
-        // - check capacity and evict if over
-
-        // if it does we need to update to the front of the list and update the value
     }
 
-    get(key: K): V | undefined {
-        // check the cache for existence
-        const node = this.lookup.get(key);
-        if (!node) {
-            return undefined;
+    public V get(K key) {
+        Node<V> node = lookup.get(key);
+        if (node == null) {
+            return null;
         }
-        // update the value we found and move it to the front
-        this.detach(node);
-        this.prepend(node);
-        // return oyt the value found or undefined if not found
+        detach(node);
+        prepend(node);
         return node.value;
     }
 
-    private detach(node: Node<V>): void {
-        if (node.prev) {
+    private void detach(Node<V> node) {
+        if (node.prev != null) {
             node.prev.next = node.next;
         }
-        if (node.next) {
+        if (node.next != null) {
             node.next.prev = node.prev;
         }
-        if (this.length === 1) {
-            this.head = this.tail = undefined;
+        if (length == 1) {
+            head = tail = null;
         }
-        if (this.head === node) {
-            this.head = this.head.next;
+        if (head == node) {
+            head = head.next;
         }
-        if (this.tail === node) {
-            this.tail = this.tail.prev;
+        if (tail == node) {
+            tail = tail.prev;
         }
 
-        node.next = undefined;
-        node.prev = undefined;
+        node.next = null;
+        node.prev = null;
     }
 
-    private prepend(node: Node<V>): void {
-        if (!this.head) {
-            this.head = this.tail = node;
+    private void prepend(Node<V> node) {
+        if (head == null) {
+            head = tail = node;
             return;
         }
 
-        node.next = this.head;
-        this.head.prev = node;
-        this.head = node;
+        node.next = head;
+        head.prev = node;
+        head = node;
     }
 
-    private trimCache(): void {
-        if (this.length <= this.capacity) {
+    private void trimCache() {
+        if (length <= capacity) {
             return;
-        } 
-        const tail = this.tail as Node<V>;
-        this.detach(this.tail as Node<V>);
+        }
+        Node<V> tailNode = tail;
+        detach(tail);
 
-        const key = this.reverseLookup.get(tail as Node<V>) as K;
-        this.lookup.delete(key);
-        this.reverseLookup.delete(tail as Node<V>);
-        this.length--;
+        K key = reverseLookup.get(tailNode);
+        lookup.remove(key);
+        reverseLookup.remove(tailNode);
+        length--;
     }
 }

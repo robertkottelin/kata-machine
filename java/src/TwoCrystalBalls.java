@@ -1,45 +1,45 @@
-export default function two_crystal_balls(breaks: boolean[]): number {
+package src;
 
-    const jmpAmount = Math.floor(Math.sqrt(breaks.length));
+public class TwoCrystalBalls {
+    public static int twoCrystalBalls(boolean[] breaks) {
+        int jmpAmount = (int) Math.floor(Math.sqrt(breaks.length));
 
-    let i = jmpAmount;
-    for (; i < breaks.length; i += jmpAmount) {
-        if (breaks[i]) {
-            break;
+        int i = jmpAmount;
+        for (; i < breaks.length; i += jmpAmount) {
+            if (breaks[i]) {
+                break;
+            }
         }
+
+        i -= jmpAmount;
+
+        for (int j = 0; j <= jmpAmount && i < breaks.length; ++j, ++i) {
+            if (breaks[i]) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
-    i -= jmpAmount;
-
-    for (let j = 0; j <= jmpAmount && i < breaks.length; ++j, ++i) {
-        if (breaks[i]) {
-            return i;
+    public static int twoCrystalBalls2(boolean[] breaks) {
+        int jmpAmount = 1;
+        int i = jmpAmount;
+        for (; i < breaks.length; i += jmpAmount) {
+            if (breaks[i]) {
+                break;
+            }
+            jmpAmount++;
         }
-    }
 
-    return -1;
+        i -= jmpAmount;
 
-}
-
-// same as above but not with sqrt
-export function two_crystal_balls_2(breaks: boolean[]): number {
-    let jmpAmount = 1;
-    let i = jmpAmount;
-    for (; i < breaks.length; i += jmpAmount) {
-        if (breaks[i]) {
-            break;
+        for (int j = 0; j <= jmpAmount && i < breaks.length; ++j, ++i) {
+            if (breaks[i]) {
+                return i;
+            }
         }
-        jmpAmount++;
+
+        return -1;
     }
-
-    i -= jmpAmount;
-
-    for (let j = 0; j <= jmpAmount && i < breaks.length; ++j, ++i) {
-        if (breaks[i]) {
-            return i;
-        }
-    }
-
-    return -1;
-
 }

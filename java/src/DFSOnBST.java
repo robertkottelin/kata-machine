@@ -1,24 +1,40 @@
-function search(curr: BinaryNode<number> | null, needle: number): boolean {
-    if (!curr) {
-        return false;
+package src;
+
+public class BinaryTreeDFS {
+
+    public static class BinaryNode<T> {
+        T value;
+        BinaryNode<T> left;
+        BinaryNode<T> right;
+
+        public BinaryNode(T value, BinaryNode<T> left, BinaryNode<T> right) {
+            this.value = value;
+            this.left = left;
+            this.right = right;
+        }
     }
 
-    if (curr.value === needle) {
-        return true;
+    private static boolean search(BinaryNode<Integer> curr, int needle) {
+        if (curr == null) {
+            return false;
+        }
+
+        if (curr.value == needle) {
+            return true;
+        }
+
+        if (curr.value < needle) {
+            return search(curr.right, needle);
+        }
+
+        if (curr.value > needle) {
+            return search(curr.left, needle);
+        }
+
+        return search(curr.left, needle) || search(curr.right, needle);
     }
 
-    if (curr.value < needle) {
-        return search(curr.right, needle);
+    public static boolean dfs(BinaryNode<Integer> head, int needle) {
+        return search(head, needle);
     }
-
-    if (curr.value > needle) {
-        return search(curr.left, needle);
-    }
-
-
-    return search(curr.left, needle) || search(curr.right, needle);
-}
-
-export default function dfs(head: BinaryNode<number>, needle: number): boolean {
-    return search(head, needle);
 }

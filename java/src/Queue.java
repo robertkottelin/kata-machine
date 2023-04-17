@@ -1,48 +1,53 @@
-// first in first out, if the queue is empty
+package src;
 
-type Node<T> = {
-    value: T,
-    next?: Node<T>,
+public class Node<T> {
+    T value;
+    Node<T> next;
+
+    public Node(T value) {
+        this.value = value;
+        this.next = null;
+    }
 }
 
-export default class Queue<T> {
-    public length: number;
-    private head?: Node<T>;
-    private tail?: Node<T>;
+public class Queue<T> {
+    public int length;
+    private Node<T> head;
+    private Node<T> tail;
 
-    constructor() {
-        this.head = this.tail = undefined;
+    public Queue() {
+        this.head = this.tail = null;
         this.length = 0;
     }
 
-    enqueue(item: T): void {
-        const node = {value: item} as Node<T>;
-        this.length ++;
-        if (!this.tail) {
+    public void enqueue(T item) {
+        Node<T> node = new Node<>(item);
+        this.length++;
+        if (this.tail == null) {
             this.tail = this.head = node;
             return;
         }
 
-        this.tail.next  = node;
+        this.tail.next = node;
         this.tail = node;
     }
 
-    deque(): T | undefined {
-        if (!this.head) {
-            return undefined;
+    public T dequeue() {
+        if (this.head == null) {
+            return null;
         }
 
-        this.length --;
-        
-        const head = this.head;
+        this.length--;
+
+        Node<T> head = this.head;
         this.head = this.head.next;
 
-        head.next = undefined;
+        head.next = null;
 
         return head.value;
     }
 
-    peek(): T | undefined {
-        return this.head?.value;
+    public T peek() {
+        return this.head != null ? this.head.value : null;
     }
 }

@@ -1,24 +1,31 @@
+package src;
+
 // last in, first out
 
-type Node<T> = {
-    value?: T,
-    prev?: Node<T>,
+public class Node<T> {
+    T value;
+    Node<T> prev;
+
+    public Node(T value) {
+        this.value = value;
+        this.prev = null;
+    }
 }
 
-export default class Stack<T> {
-    public length: number;
-    private head?: Node<T>;
-    
-    constructor() {
-        this.head = undefined;
+public class Stack<T> {
+    public int length;
+    private Node<T> head;
+
+    public Stack() {
+        this.head = null;
         this.length = 0;
     }
 
-    push(item: T): void {
-        const node = {value: item} as Node<T>;
+    public void push(T item) {
+        Node<T> node = new Node<>(item);
 
-        this.length ++;
-        if (!this.head) {
+        this.length++;
+        if (this.head == null) {
             this.head = node;
             return;
         }
@@ -26,80 +33,21 @@ export default class Stack<T> {
         this.head = node;
     }
 
-    pop(): T | undefined {
+    public T pop() {
         this.length = Math.max(0, this.length - 1);
-        if (this.length === 0) {
-            const head = this.head;
-            this.head = undefined;
-            return head?.value;
+        if (this.length == 0) {
+            Node<T> head = this.head;
+            this.head = null;
+            return head != null ? head.value : null;
         }
 
-        const head  = this.head as Node<T>;
+        Node<T> head = this.head;
         this.head = head.prev;
-
-        // // free memory
-        // head.prev = undefined;
 
         return head.value;
     }
 
-    peek(): T | undefined {
-        return this.head?.value;
+    public T peek() {
+        return this.head != null ? this.head.value : null;
     }
 }
-
-// RUST
-// struct Node<T> {
-//     value: Option<T>,
-//     prev: Option<Box<Node<T>>>,
-// }
-
-// impl<T> Node<T> {
-//     fn new(value: T) -> Self {
-//         Node { value: Some(value), prev: None }
-//     }
-// }
-
-// pub struct Stack<T> {
-//     length: usize,
-//     head: Option<Box<Node<T>>>,
-// }
-
-// impl<T> Stack<T> {
-//     pub fn new() -> Self {
-//         Stack { length: 0, head: None }
-//     }
-
-//     pub fn push(&mut self, item: T) {
-//         let node = Box::new(Node::new(item));
-
-//         self.length += 1;
-//         if self.head.is_none() {
-//             self.head = Some(node);
-//             return;
-//         }
-//         let mut head = self.head.take().unwrap();
-//         head.prev = Some(node);
-//         self.head = Some(head);
-//     }
-
-//     pub fn pop(&mut self) -> Option<T> {
-//         self.length = self.length.saturating_sub(1);
-//         if self.length == 0 {
-//             let head = self.head.take();
-//             return head.unwrap().value;
-//         }
-
-//         let mut head = self.head.take().unwrap();
-//         self.head = head.prev.take();
-
-//         // // free memory
-//         // head.prev = None;
-
-//         head.value
-//     }
-
-//     pub fn peek(&self) -> Option<&T> {
-//         self.head.as_ref().map(|head| head.value.as_ref().unwrap())
-//     }
-// }

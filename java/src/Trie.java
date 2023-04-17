@@ -1,83 +1,99 @@
-type TrieNode = {
-    isEndOfWord: boolean;
-    children: Map<string, TrieNode>;
+package src;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TrieNode {
+    boolean isEndOfWord;
+    Map<String, TrieNode> children;
+
+    public TrieNode() {
+        isEndOfWord = false;
+        children = new HashMap<>();
+    }
 }
 
-export default class Trie {
-    private root: TrieNode;
+public class Trie {
+    private TrieNode root;
 
-    constructor() {
-        this.root = { isEndOfWord: false, children: new Map() };
+    public Trie() {
+        this.root = new TrieNode();
     }
 
-    insert(item: string): void {
-        let currentNode = this.root;
+    public void insert(String item) {
+        TrieNode currentNode = this.root;
 
-        for (const char of item) {
-            if (!currentNode.children.has(char)) {
-                currentNode.children.set(char, { isEndOfWord: false, children: new Map() });
+        for (char c : item.toCharArray()) {
+            String charStr = String.valueOf(c);
+            if (!currentNode.children.containsKey(charStr)) {
+                currentNode.children.put(charStr, new TrieNode());
             }
-            currentNode = currentNode.children.get(char)!;
+            currentNode = currentNode.children.get(charStr);
         }
 
         currentNode.isEndOfWord = true;
     }
 
-    delete(item: string): void {
-        this._delete(this.root, item, 0);
+    public void delete(String item) {
+        _delete(this.root, item, 0);
     }
 
-    private _delete(node: TrieNode, item: string, index: number): boolean {
-        if (index === item.length) {
+    private boolean _delete(TrieNode node, String item, int index) {
+        if (index == item.length()) {
             if (!node.isEndOfWord) {
                 return false;
             }
 
             node.isEndOfWord = false;
-            return node.children.size === 0;
+            return node.children.size() == 0;
         }
 
-        const char = item[index];
-        const childNode = node.children.get(char);
+        String charStr = String.valueOf(item.charAt(index));
+        TrieNode childNode = node.children.get(charStr);
 
-        if (!childNode) {
+        if (childNode == null) {
             return false;
         }
 
-        const shouldDeleteChild = this._delete(childNode, item, index + 1);
+        boolean shouldDeleteChild = _delete(childNode, item, index + 1);
 
         if (shouldDeleteChild) {
-            node.children.delete(char);
-            return node.children.size === 0 && !node.isEndOfWord;
+            node.children.remove(charStr);
+            return node.children.size() == 0 && !node.isEndOfWord;
         }
 
         return false;
     }
 
-    find(partial: string): string[] {
-        let currentNode = this.root;
+    public List<String> find(String partial) {
+        TrieNode currentNode = this.root;
 
-        for (const char of partial) {
-            const childNode = currentNode.children.get(char);
-            if (!childNode) {
-                return [];
+        for (char c : partial.toCharArray()) {
+            String charStr = String.valueOf(c);
+            TrieNode childNode = currentNode.children.get(charStr);
+            if (childNode == null) {
+                return new ArrayList<>();
             }
             currentNode = childNode;
         }
 
-        return this._findWords(currentNode, partial);
+        return _findWords(currentNode, partial);
     }
 
-    private _findWords(node: TrieNode, prefix: string): string[] {
-        const words: string[] = [];
+    private List<String> _findWords(TrieNode node, String prefix) {
+        List<String> words = new ArrayList<>();
 
         if (node.isEndOfWord) {
-            words.push(prefix);
+            words.add(prefix);
         }
 
-        for (const [char, childNode] of node.children) {
-            const childWords = this._findWords(childNode, prefix + char);
-            words.push(...childWords);
+        for (Map.Entry<String, TrieNode> entry : node.children.entrySet()) {
+            String charStr = entry.getKey();
+            TrieNode childNode = entry.getValue();
+            List<String> childWords = _findWords(childNode, prefix + charStr);
+            words.addAll(childWords);
         }
 
         return words;

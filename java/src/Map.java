@@ -1,28 +1,32 @@
-export default class CustomMap<T extends (string | number), V> {
-    private items: Record<T, V>;
+package src;
+import java.util.HashMap;
+import java.util.Map;
 
-    constructor() {
-        this.items = {} as Record<T, V>;
+public class CustomMap<T, V> {
+    private Map<T, V> items;
+
+    public CustomMap() {
+        this.items = new HashMap<>();
     }
 
-    get(key: T): V | undefined {
-        return this.items.hasOwnProperty(key) ? this.items[key] : undefined;
+    public V get(T key) {
+        return items.get(key);
     }
 
-    set(key: T, value: V): void {
-        this.items[key] = value;
+    public void set(T key, V value) {
+        items.put(key, value);
     }
 
-    delete(key: T): V | undefined {
-        if (this.items.hasOwnProperty(key)) {
-            const deletedValue = this.items[key];
-            delete this.items[key];
+    public V delete(T key) {
+        V deletedValue = items.get(key);
+        if (deletedValue != null) {
+            items.remove(key);
             return deletedValue;
         }
-        return undefined;
+        return null;
     }
 
-    size(): number {
-        return Object.keys(this.items).length;
+    public int size() {
+        return items.size();
     }
 }

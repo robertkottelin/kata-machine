@@ -1,134 +1,143 @@
-type ListNode<T> = {
-    value: T,
-    next?: ListNode<T>,
+package src;
+
+public class ListNode<T> {
+    T value;
+    ListNode<T> next;
+
+    public ListNode(T value) {
+        this.value = value;
+        this.next = null;
+    }
 }
 
-export default class SinglyLinkedList<T> {
-    public length: number;
-    private head?: ListNode<T>;
+public class SinglyLinkedList<T> {
+    public int length;
+    private ListNode<T> head;
 
-    constructor() {
+    public SinglyLinkedList() {
         this.length = 0;
     }
 
-    prepend(item: T): void {
-        const node = { value: item, next: this.head } as ListNode<T>;
+    public void prepend(T item) {
+        ListNode<T> node = new ListNode<>(item);
+        node.next = this.head;
         this.head = node;
         this.length++;
     }
 
-    insertAt(item: T, idx: number): void {
+    public void insertAt(T item, int idx) {
         if (idx < 0 || idx > this.length) {
-            throw new Error('Index out of bounds');
+            throw new IllegalArgumentException("Index out of bounds");
         }
 
-        if (idx === 0) {
+        if (idx == 0) {
             this.prepend(item);
             return;
         }
 
-        let currentNode = this.head;
-        let prevNode: ListNode<T> | undefined;
-        let currentIndex = 0;
+        ListNode<T> currentNode = this.head;
+        ListNode<T> prevNode = null;
+        int currentIndex = 0;
 
         while (currentIndex < idx) {
             prevNode = currentNode;
-            currentNode = currentNode?.next;
+            currentNode = currentNode.next;
             currentIndex++;
         }
 
-        const newNode = { value: item, next: currentNode } as ListNode<T>;
-        prevNode!.next = newNode;
+        ListNode<T> newNode = new ListNode<>(item);
+        newNode.next = currentNode;
+        prevNode.next = newNode;
         this.length++;
     }
 
-    append(item: T): void {
-        if (!this.head) {
+    public void append(T item) {
+        if (this.head == null) {
             this.prepend(item);
             return;
         }
 
-        let currentNode = this.head;
-        while (currentNode.next) {
+        ListNode<T> currentNode = this.head;
+        while (currentNode.next != null) {
             currentNode = currentNode.next;
         }
 
-        currentNode.next = { value: item } as ListNode<T>;
+        currentNode.next = new ListNode<>(item);
         this.length++;
     }
 
-    remove(item: T): T | undefined {
-        if (!this.head) {
-            return undefined;
+    public T remove(T item) {
+        if (this.head == null) {
+            return null;
         }
 
-        let currentNode = this.head;
-        let prevNode: ListNode<T> | undefined;
+        ListNode<T> currentNode = this.head;
+        ListNode<T> prevNode = null;
 
-        if (currentNode.value === item) {
+        if (currentNode.value.equals(item)) {
             this.head = currentNode.next;
             this.length--;
             return item;
         }
 
-        while (currentNode.next && currentNode.value !== item) {
+        while (currentNode.next != null && !currentNode.value.equals(item)) {
             prevNode = currentNode;
             currentNode = currentNode.next;
         }
 
-        if (currentNode.value === item) {
-            prevNode!.next = currentNode.next;
+        if (currentNode.value.equals(item)) {
+            prevNode.next = currentNode.next;
             this.length--;
             return item;
         }
 
-        return undefined;
+        return null;
     }
 
-    get(idx: number): T | undefined {
+    public T get(int idx) {
         if (idx < 0 || idx >= this.length) {
-            return undefined;
+            return null;
         }
 
-        let currentNode = this.head;
-        let currentIndex = 0;
+        ListNode<T> currentNode = this.head;
+        int currentIndex = 0;
 
-        while (currentNode && currentIndex < idx) {
+        while (currentNode != null && currentIndex < idx) {
             currentNode = currentNode.next;
             currentIndex++;
         }
 
-        return currentNode?.value;
+        return currentNode != null ? currentNode.value : null;
     }
 
-    removeAt(idx: number): T | undefined {
+    public T removeAt(int idx) {
         if (idx < 0 || idx >= this.length) {
-            return undefined;
+            return null;
         }
 
-        if (idx === 0) {
-            const value = this.head!.value;
-            this.head = this.head!.next;
+        if (idx == 0) {
+            T value = this.head.value;
+            this.head = this.head.next;
             this.length--;
             return value;
         }
 
-        let currentNode = this.head;
-        let prevNode: ListNode<T> | undefined;
-        let currentIndex = 0;
+        ListNode<T> currentNode = this.head;
+        ListNode<T> prevNode = null;
+        int currentIndex = 0;
 
-        while (currentNode && currentIndex < idx) {
+        while (currentNode != null && currentIndex < idx) {
             prevNode = currentNode;
             currentNode = currentNode.next;
             currentIndex++;
         }
 
-        if (currentNode) {
-            prevNode!.next = currentNode.next;
+        if (currentNode != null) {
+            prevNode.next = currentNode.next;
             this.length--;
             return currentNode.value;
         }
 
-        return undefined;
+        return null;
     }
 }
