@@ -22,6 +22,7 @@ mod singly_linked_list;
 mod stack;
 mod trie;
 mod two_crystall_balls;
+mod priority_queue;
 
 fn main() {
     quick_sort::quick_sort(&mut vec![9,4,3,5]);

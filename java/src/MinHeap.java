@@ -1,6 +1,5 @@
 package src;
 
-
 public class MinHeap {
     public int length;
     private int[] data;
