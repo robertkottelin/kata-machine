@@ -7,8 +7,12 @@ import java.util.List;
 public class DijkstraList {
 
     // Class representing an edge in a graph with a destination and a weight
+    // represents a connection between two nodes in a graph
     public static class Edge {
+        // integer representing the destination node of the edge, tells you which node this edge connects to.
         int to;
+        // an integer representing the weight (or cost) of the edge. The weight is used in Dijkstra's algorithm 
+        // to determine the shortest path between nodes in the graph.
         int weight;
 
         public Edge(int to, int weight) {
@@ -47,26 +51,40 @@ public class DijkstraList {
 
     // Dijkstra's algorithm to find the shortest path between two nodes in a graph
     // Running time: O(V^2 + E)
-    public static List<Integer> dijkstraLift(int source, int sink, List<List<Edge>> arr) {
+    /*
+    int source: This is an integer representing the index of the starting node in the graph. 
+    The algorithm will find the shortest path from this node to the destination node (sink).
+
+    List<List<Edge>> arr: This is a nested list of Edge objects, representing the adjacency list of the graph. 
+    An adjacency list is a data structure used to represent a graph, 
+    where each node in the graph is associated with a list of its adjacent nodes connected by edges. 
+    In this case, the outer list has a length equal to the number of nodes in the graph, 
+    and each inner list contains Edge objects that represent the edges connected to the corresponding node.
+    */
+    public static List<Integer> dijkstraList(int source, int sink, List<List<Edge>> arr) {
         // Initialize seen (visited) and dist (distance) arrays
+        // seen[] boolean array indicating whether a node has been visited or not
         boolean[] seen = new boolean[arr.size()];
         Arrays.fill(seen, false);
+        // dists[] stores the shortest distance from the source node to each node in the graph.
         double[] dists = new double[arr.size()];
         Arrays.fill(dists, Double.POSITIVE_INFINITY);
+        // prev[] stores the index of the previous node in the shortest path for each node.
         int[] prev = new int[arr.size()];
         Arrays.fill(prev, -1);
 
         // Set the distance of the source node to zero
         dists[source] = 0;
 
-        // Continue while there are unvisited nodes with finite distances
+        // Use a while loop to continue the algorithm while there are unvisited nodes with finite distances left. 
+        // This is checked using the hasUnvisited helper function.
         while (hasUnvisited(seen, dists)) {
             // Get the index of the unvisited node with the lowest distance
             int curr = getLowestUnvisited(seen, dists);
             // Mark the current node as visited
             seen[curr] = true;
 
-            // Iterate through the current node's adjacent edges
+            // Iterate through the current node's adjacent edges, skipping the ones that lead to visited nodes.
             List<Edge> adjs = arr.get(curr);
             for (int i = 0; i < adjs.size(); ++i) {
                 Edge edge = adjs.get(i);
@@ -74,7 +92,7 @@ public class DijkstraList {
                 if (seen[edge.to]) {
                     continue;
                 }
-                // Calculate the new distance to the adjacent node
+                // Calculate the new distance to each adjacent node
                 double dist = dists[curr] + edge.weight;
                 // Update the distance and previous node if the new distance is shorter
                 if (dist < dists[edge.to]) {
@@ -84,7 +102,7 @@ public class DijkstraList {
             }
         }
 
-        // Construct the shortest path by traversing the previous nodes array
+        // Construct the shortest path by traversing the prev[] array, starting from the sink node.
         List<Integer> out = new ArrayList<>();
         int curr = sink;
         while (prev[curr] != -1) {
@@ -92,7 +110,7 @@ public class DijkstraList {
             curr = prev[curr];
         }
 
-        // Add the source node and reverse the path to get the correct order
+        // Reverse the path to get the correct order and return it as a list of node indices.
         out.add(source);
         List<Integer> reversedOut = new ArrayList<>(out);
         java.util.Collections.reverse(reversedOut);
