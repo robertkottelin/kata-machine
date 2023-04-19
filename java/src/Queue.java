@@ -3,12 +3,12 @@ package src;
 // import src.Node;
 
 // Node class represents an element in the queue with its value and a reference to the next node.
-class Node<T> {
+class QueueNode<T> {
     T value; // The value of the node
-    Node<T> next; // A reference to the next node in the queue
+    QueueNode<T> next; // A reference to the next node in the queue
 
     // Node constructor takes a value and initializes the next reference to null
-    public Node(T value) {
+    public QueueNode(T value) {
         this.value = value;
         this.next = null;
     }
@@ -17,8 +17,8 @@ class Node<T> {
 // Queue class represents a queue data structure using generic type T
 public class Queue<T> {
     public int length; // The number of elements in the queue
-    private Node<T> head; // The first element in the queue
-    private Node<T> tail; // The last element in the queue
+    private QueueNode<T> head; // The first element in the queue
+    private QueueNode<T> tail; // The last element in the queue
 
     // Queue constructor initializes an empty queue with head and tail as null and length as 0
     public Queue() {
@@ -28,7 +28,7 @@ public class Queue<T> {
 
     // enqueue method adds an item to the end of the queue
     public void enqueue(T item) {
-        Node<T> node = new Node<>(item); // Create a new node with the given item
+        QueueNode<T> node = new QueueNode<>(item); // Create a new node with the given item
         this.length++; // Increment the length of the queue
 
         // If the queue is empty, set the head and tail to the new node
@@ -53,7 +53,7 @@ public class Queue<T> {
         this.length--;
 
         // Store the current head node, update the head to the next node
-        Node<T> head = this.head;
+        QueueNode<T> head = this.head;
         this.head = this.head.next;
 
         // Set the old head's next reference to null and return its value
