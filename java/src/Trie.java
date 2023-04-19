@@ -99,3 +99,56 @@ public class Trie {
         return words;
     }
 }
+
+//////////////////////////////////////////////////////////////////////////////
+// Implement Trie data structure for efficient string search and insertion.
+class Trie {
+    class TrieNode {
+        TrieNode[] children;
+        boolean isEndOfWord;
+
+        TrieNode() {
+            children = new TrieNode[26];
+            isEndOfWord = false;
+            for (int i = 0; i < 26; i++) {
+                children[i] = null;
+            }
+        }
+    }
+
+    TrieNode root;
+
+    public Trie() {
+        root = new TrieNode();
+    }
+
+    public void insert(String key) {
+        TrieNode currentNode = root;
+
+        for (int level = 0; level < key.length(); level++) {
+            int index = key.charAt(level) - 'a';
+            if (currentNode.children[index] == null) {
+                currentNode.children[index] = new TrieNode();
+            }
+
+            currentNode = currentNode.children[index];
+        }
+
+        currentNode.isEndOfWord = true;
+    }
+
+    public boolean search(String key) {
+        TrieNode currentNode = root;
+
+        for (int level = 0; level < key.length(); level++) {
+            int index = key.charAt(level) - 'a';
+            if (currentNode.children[index] == null) {
+                return false;
+            }
+
+            currentNode = currentNode.children[index];
+        }
+
+        return currentNode != null && currentNode.isEndOfWord;
+    }
+}

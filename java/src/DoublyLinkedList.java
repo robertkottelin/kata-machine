@@ -176,3 +176,65 @@ public class DoublyLinkedList<T> {
         return this.length;
     }
 }
+
+
+/////////////////////////////////////////////////////
+// Implement insertion, deletion, and traversal
+class DoublyLinkedList {
+    class Node {
+        int data;
+        Node prev, next;
+    }
+
+    private Node head, tail;
+
+    public DoublyLinkedList() {
+        head = null;
+        tail = null;
+    }
+
+    public void insertAtEnd(int data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.prev = newNode.next = null;
+
+        if (head == null) {
+            head = tail = newNode;
+        } else {
+            newNode.prev = tail;
+            tail.next = newNode;
+            tail = newNode;
+        }
+    }
+
+    public void delete(int data) {
+        Node current = head;
+
+        while (current != null) {
+            if (current.data == data) {
+                if (current.prev != null) {
+                    current.prev.next = current.next;
+                } else {
+                    head = current.next;
+                }
+
+                if (current.next != null) {
+                    current.next.prev = current.prev;
+                } else {
+                    tail = current.prev;
+                }
+                return;
+            }
+            current = current.next;
+        }
+    }
+
+    public void display() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
