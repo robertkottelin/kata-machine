@@ -3,16 +3,16 @@ package src;
 // import src.Node;
 
 // Node class represents an element in the queue with its value and a reference to the next node.
-// public class Node<T> {
-//     T value; // The value of the node
-//     Node<T> next; // A reference to the next node in the queue
+public class Node<T> {
+    T value; // The value of the node
+    Node<T> next; // A reference to the next node in the queue
 
-//     // Node constructor takes a value and initializes the next reference to null
-//     public Node(T value) {
-//         this.value = value;
-//         this.next = null;
-//     }
-// }
+    // Node constructor takes a value and initializes the next reference to null
+    public Node(T value) {
+        this.value = value;
+        this.next = null;
+    }
+}
 
 // Queue class represents a queue data structure using generic type T
 public class Queue<T> {

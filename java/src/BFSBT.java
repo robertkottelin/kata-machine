@@ -3,6 +3,8 @@ package src;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+//time complexity of BFS is O(n), where n is total number of nodes
+
 public class BTBFS {
 
     // Definition for a binary tree node

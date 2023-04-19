@@ -3,15 +3,22 @@ package src;
 import java.util.Comparator;
 // import src.Node;
 
-// public class Node<T> {
-//     T value;
-//     Node<T> next;
+/*
+A riority queue implemented using a singly linked list. 
+The PriorityQueue class has two constructors: one that uses the natural ordering of the elements and another that accepts a custom comparator for priority ordering. 
+The enqueue method inserts an item into the priority queue according to its priority, while the dequeue method removes and returns the highest priority item from the queue. 
+The peek method returns the highest priority
+*/
 
-//     public Node(T value) {
-//         this.value = value;
-//         this.next = null;
-//     }
-// }
+public class Node<T> {
+    T value;
+    Node<T> next;
+
+    public Node(T value) {
+        this.value = value;
+        this.next = null;
+    }
+}
 
 public class PriorityQueue<T extends Comparable<T>> {
     private int length;
@@ -86,8 +93,24 @@ public class PriorityQueue<T extends Comparable<T>> {
     public int size() {
         return this.length;
     }
-}
 
+
+    public static void main(String[] args) {
+        // Create a PriorityQueue using natural ordering
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+
+        // Enqueue some elements
+        queue.enqueue(3);
+        queue.enqueue(1);
+        queue.enqueue(5);
+        queue.enqueue(2);
+
+        // Dequeue and print the elements in descending order
+        while (queue.size() > 0) {
+            System.out.println(queue.dequeue());
+        }
+    }
+}
 
 // USAGE:
 // Create a PriorityQueue with a custom Comparator to determine priority ordering. 
