@@ -3,7 +3,7 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DepthFirstGraphListSearch {
+public class DFGraphListSearch {
 
     public static class Edge {
         int to;

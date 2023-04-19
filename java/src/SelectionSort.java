@@ -1,3 +1,5 @@
+package src;
+
 // Sort a given list of integers using the selection sort algorithm
 
 public class SelectionSort {

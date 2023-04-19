@@ -10,7 +10,7 @@ The enqueue method inserts an item into the priority queue according to its prio
 The peek method returns the highest priority
 */
 
-public class Node<T> {
+class Node<T> {
     T value;
     Node<T> next;
 
@@ -109,6 +109,12 @@ public class PriorityQueue<T extends Comparable<T>> {
         while (queue.size() > 0) {
             System.out.println(queue.dequeue());
         }
+    }
+
+    public void add(ListNode list) {
+    }
+
+    public void poll() {
     }
 }
 

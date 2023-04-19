@@ -1,3 +1,5 @@
+package src;
+
 // Find the shortest path between two nodes in a graph using BFS.
 // Data structure: BFSGraphMatrix.java
 

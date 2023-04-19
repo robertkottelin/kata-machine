@@ -1,3 +1,5 @@
+package src;
+
 // Implement a simple text editor with undo functionality using Stacks.
 import java.util.Stack;
 

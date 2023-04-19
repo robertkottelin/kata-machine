@@ -10,6 +10,8 @@ This process continues until the correct position for the current element (key) 
 The algorithm continues until all elements have been sorted.
 */
 
+package src;
+
 public class InsertionSort {
 
     public static void insertionSort(int[] arr) {

@@ -1,19 +1,19 @@
 package src;
 
 import java.util.ArrayList;
-// import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// public class TrieNode {
-//     boolean isEndOfWord;
-//     Map<String, TrieNode> children;
+class TrieNode {
+    boolean isEndOfWord;
+    Map<String, TrieNode> children;
 
-//     public TrieNode() {
-//         isEndOfWord = false;
-//         children = new HashMap<>();
-//     }
-// }
+    public TrieNode() {
+        isEndOfWord = false;
+        children = new HashMap<>();
+    }
+}
 
 public class Trie {
     private TrieNode root;
@@ -101,7 +101,9 @@ public class Trie {
 }
 
 //////////////////////////////////////////////////////////////////////////////
+/* 
 // Implement Trie data structure for efficient string search and insertion.
+
 class Trie {
     class TrieNode {
         TrieNode[] children;
@@ -152,3 +154,4 @@ class Trie {
         return currentNode != null && currentNode.isEndOfWord;
     }
 }
+*/

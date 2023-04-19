@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Stack",
+            "request": "launch",
+            "mainClass": "src.Stack",
+            "projectName": "data-structures-algorithms_9b1f4707"
+        },
+        {
+            "type": "java",
+            "name": "BFSBT",
+            "request": "launch",
+            "mainClass": "src.BFSBT",
+            "projectName": "data-structures-algorithms_9b1f4707"
+        },
+        {
+            "type": "java",
+            "name": "BTBFS",
+            "request": "launch",
+            "mainClass": "src.BTBFS",
+            "projectName": "data-structures-algorithms_9b1f4707"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "src.Main",

@@ -1,3 +1,5 @@
+package src;
+
 // Implement a binary search tree data structure and its basic operations (insert, search, delete).
 
 public class BinarySearchTree {

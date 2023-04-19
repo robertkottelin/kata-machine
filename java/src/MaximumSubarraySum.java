@@ -1,3 +1,5 @@
+package src;
+
 // Input: stock market data, find the best time to buy and sell using dynamic programming
 // Data structure: array of integers
 

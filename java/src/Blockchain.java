@@ -1,3 +1,4 @@
+package src;
 // Import the required libraries for hashing and linked list.
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

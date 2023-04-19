@@ -3,7 +3,7 @@ package src;
 // import src.Node;
 
 // Node class represents an element in the queue with its value and a reference to the next node.
-public class Node<T> {
+class Node<T> {
     T value; // The value of the node
     Node<T> next; // A reference to the next node in the queue
 

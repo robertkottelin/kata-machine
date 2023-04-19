@@ -1,3 +1,5 @@
+package src;
+
 // Merge K sorted linked lists.
 // Data structure: Linked List
 
@@ -12,27 +14,28 @@ class ListNode {
     }
 }
 
-public class Solution {
+public class MergeKSortedLinkedLists {
     public ListNode mergeKLists(ListNode[] lists) {
         PriorityQueue<ListNode> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
-        for (ListNode list : lists)
-        if (list != null) {
-            pq.add(list);
+        for (ListNode list : lists) {
+            if (list != null) {
+                pq.add(list);
+            }
         }
-    }
 
-    ListNode dummy = new ListNode(-1);
-    ListNode current = dummy;
+        ListNode dummy = new ListNode(-1);
+        ListNode current = dummy;
 
-    while (!pq.isEmpty()) {
-        ListNode node = pq.poll();
-        current.next = node;
-        current = current.next;
+        while (!pq.isEmpty()) {
+            ListNode node = pq.poll();
+            current.next = node;
+            current = current.next;
 
-        if (node.next != null) {
-            pq.add(node.next);
+            if (node.next != null) {
+                pq.add(node.next);
+            }
         }
-    }
 
-    return dummy.next;
+        return dummy.next;
+    }
 }

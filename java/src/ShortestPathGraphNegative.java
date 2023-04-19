@@ -1,3 +1,5 @@
+package src;
+
 // Find the shortest path in a weighted graph with negative weights (no negative weight cycles). Use the Bellman-Ford algorithm.
 // Data structure: Graph with adjacency list representation.
 

@@ -1,15 +1,15 @@
 package src;
 // import src.ListNode;
 
-// public class ListNode<T> {
-//     T value;
-//     ListNode<T> next;
+class ListNode<T> {
+    T value;
+    ListNode<T> next;
 
-//     public ListNode(T value) {
-//         this.value = value;
-//         this.next = null;
-//     }
-// }
+    public ListNode(T value) {
+        this.value = value;
+        this.next = null;
+    }
+}
 
 public class SinglyLinkedList<T> {
     public int length;

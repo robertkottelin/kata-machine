@@ -1,3 +1,5 @@
+package src;
+
 class CustomHashMap {
     class Entry {
         int key;

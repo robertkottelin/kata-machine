@@ -12,9 +12,11 @@ Finally, the resultSet is returned, containing the intersection of the two input
 
 */
 
+package src;
+
 import java.util.HashSet;
 
-public class SetIntersection {
+public class FindIntersectionOfSets {
     // This method returns a new HashSet that contains the intersection of set1 and set2
     public HashSet<Integer> intersection(HashSet<Integer> set1, HashSet<Integer> set2) {
         // Create a new HashSet to store the result of the intersection

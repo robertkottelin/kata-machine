@@ -5,7 +5,7 @@ import java.util.Deque;
 
 //time complexity of BFS is O(n), where n is total number of nodes
 
-public class BTBFS {
+public class BFSBT {
 
     // Definition for a binary tree node
     public static class BinaryNode<T> {
@@ -68,18 +68,21 @@ public class BTBFS {
         //   1   6      14
         //      /  \    /
         //     4    7  13
-        BTBFS.BinaryNode<Integer> root = new BTBFS.BinaryNode<>(8);
-        root.left = new BTBFS.BinaryNode<>(3);
-        root.right = new BTBFS.BinaryNode<>(10);
-        root.left.left = new BTBFS.BinaryNode<>(1);
-        root.left.right = new BTBFS.BinaryNode<>(6);
-        root.left.right.left = new BTBFS.BinaryNode<>(4);
-        root.left.right.right = new BTBFS.BinaryNode<>(7);
-        root.right.right = new BTBFS.BinaryNode<>(14);
-        root.right.right.left = new BTBFS.BinaryNode<>(13);
+        BinaryNode<Integer> root = new BinaryNode<>(8,
+        new BinaryNode<>(3,
+                new BinaryNode<>(1, null, null),
+                new BinaryNode<>(6,
+                        new BinaryNode<>(4, null, null),
+                        new BinaryNode<>(7, null, null))),
+        new BinaryNode<>(10,
+                null,
+                new BinaryNode<>(14,
+                        new BinaryNode<>(13, null, null),
+                        null)));
+
 
         // Call the bfs function to search for a value (e.g., 13) in the binary tree
-        boolean found = BTBFS.bfs(root, 13);
+        boolean found = bfs(root, 13);
 
         // Print the result of the search
         if (found) {
@@ -89,7 +92,7 @@ public class BTBFS {
         }
 
         // Call the bfs function to search for a value (e.g., 25) not in the binary tree
-        found = BTBFS.bfs(root, 25);
+        found = bfs(root, 25);
 
         // Print the result of the search
         if (found) {

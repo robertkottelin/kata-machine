@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 // import src.Point;
 
-// public class Point {
-//     int x, y;
+class MazePoint {
+    int x, y;
 
-//     public Point(int x, int y) {
-//         this.x = x;
-//         this.y = y;
-//     }
-// }
+    public MazePoint(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
 
 public class MazeSolver {
     private static final int[][] dir = {
@@ -21,7 +21,7 @@ public class MazeSolver {
         {0, 1},  // down
     };
 
-    private static boolean walk(String[] maze, String wall, Point curr, Point end, boolean[][] seen, List<Point> path) {
+    private static boolean walk(String[] maze, String wall, MazePoint curr, MazePoint end, boolean[][] seen, List<MazePoint> path) {
         if (curr.x < 0 || curr.x >= maze[0].length() || curr.y < 0 || curr.y >= maze.length) {
             return false;
         }
@@ -45,7 +45,7 @@ public class MazeSolver {
         for (int i = 0; i < dir.length; ++i) {
             int x = dir[i][0];
             int y = dir[i][1];
-            if (walk(maze, wall, new Point(curr.x + x, curr.y + y), end, seen, path)) {
+            if (walk(maze, wall, new MazePoint(curr.x + x, curr.y + y), end, seen, path)) {
                 return true;
             }
         }
@@ -55,9 +55,9 @@ public class MazeSolver {
         return false;
     }
 
-    public static List<Point> solve(String[] maze, String wall, Point start, Point end) {
+    public static List<MazePoint> solve(String[] maze, String wall, MazePoint start, MazePoint end) {
         boolean[][] seen = new boolean[maze.length][maze[0].length()];
-        List<Point> path = new ArrayList<>();
+        List<MazePoint> path = new ArrayList<>();
 
         walk(maze, wall, start, end, seen, path);
         return path;

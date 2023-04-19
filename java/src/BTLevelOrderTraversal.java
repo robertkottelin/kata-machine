@@ -1,14 +1,14 @@
 
-10. Binary Tree Level Order Traversal
-Problem: Traverse a binary tree level by level and return the result as a list of lists.
+package src;
 
-```java
+// Traverse a binary tree level by level and return the result as a list of lists.
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BinaryTreeLevelOrderTraversal {
+public class BTLevelOrderTraversal {
 
     public static class TreeNode {
         int val;

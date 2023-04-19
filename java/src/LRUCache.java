@@ -1,3 +1,5 @@
+package src;
+
 // Implement a cache with a specified capacity using LRU eviction policy.
 import java.util.HashMap;
 
@@ -80,7 +82,7 @@ class LRUCache {
 }
 
 
-
+/* 
 //////////////////////////////////////
 // Problem: Implement an efficient LRU (Least Recently Used) Cache.
 // Data structure: LinkedHashMap
@@ -108,3 +110,5 @@ class LRUCache {
         cache.put(key, value);
     }
 }
+
+*/

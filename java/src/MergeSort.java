@@ -1,3 +1,5 @@
+package src;
+
 // Sort a given list of integers using the merge sort algorithm.
 public class MergeSort {
 

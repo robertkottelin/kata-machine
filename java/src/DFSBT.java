@@ -1,6 +1,6 @@
 package src;
 
-public class DFSOnBinaryTree {
+public class DFSBT {
 
     // Definition for a binary tree node
     public static class BinaryNode<T> {
