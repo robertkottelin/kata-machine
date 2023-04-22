@@ -1,4 +1,3 @@
-// first in first out, if the queue is empty
 
 #[derive(Debug)]
 struct Node<T> {
@@ -10,7 +9,7 @@ struct Node<T> {
 pub struct Queue<T> {
     length: usize,
     head: Option<Box<Node<T>>>,
-    tail: Option<Box<Node<T>>>,
+    tail: Option<*mut Node<T>>,
 }
 
 impl<T> Queue<T> {
@@ -23,19 +22,18 @@ impl<T> Queue<T> {
     }
 
     pub fn enqueue(&mut self, item: T) {
-        let node = Node {
+        let mut node = Box::new(Node {
             value: item,
             next: None,
-        };
+        });
+        let raw_node = &mut *node as *mut Node<T>;
         self.length += 1;
-        if self.tail.is_none() {
-            self.tail = Some(Box::new(node));
-            self.head = self.tail.clone();
-            return;
-        }
 
-        self.tail.as_mut().unwrap().next = Some(Box::new(node));
-        self.tail = self.tail.as_mut().unwrap().next.clone();
+        match self.tail.take() {
+            Some(tail) => unsafe { (*tail).next = Some(node) },
+            None => self.head = Some(node),
+        }
+        self.tail = Some(raw_node);
     }
 
     pub fn deque(&mut self) -> Option<T> {
@@ -52,6 +50,6 @@ impl<T> Queue<T> {
     }
 
     pub fn peek(&self) -> Option<&T> {
-        self.head.as_ref().map(|head| &head.value)
+        self.head.as_ref().map(|head| &head.value);
     }
 }
