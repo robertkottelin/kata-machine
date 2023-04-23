@@ -24,6 +24,7 @@ use queue::Queue;
 //mod trie;
 //mod two_crystall_balls;
 //mod priority_queue;
+mod vector;
 
 fn main() {
     //    let mut arr = vec![5, 3, 8, 4, 2, 7, 1, 6];
@@ -37,6 +38,7 @@ fn main() {
     queue.enqueue(3);
     queue.enqueue(4);
     queue.enqueue(5);
+    queue.enqueue(4);
 
     // Peek at the first item
     println!("Peek: {:?}", queue.peek());
@@ -45,4 +47,16 @@ fn main() {
     while let Some(value) = queue.deque() {
         println!("Dequeued: {}", value);
     }
+
+    let mut vector: vector::Vector<i32> = vector::Vector::new();
+
+    vector.push(1);
+    vector.push(2);
+    vector.push(5);
+
+    println!("Vector: {:?}", vector);
+
+    vector.pop();
+
+    println!("Vector after pop: {:?}", vector);
 }
