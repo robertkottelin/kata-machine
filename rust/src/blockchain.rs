@@ -1,79 +1,64 @@
-package src;
 // Import the required libraries for hashing and linked list.
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
+use std::collections::LinkedList;
+use sha2::{Sha256, Digest};
 
-// Define a Block class to represent a block in the blockchain.
-class Block {
-    int index; // Index of the block in the blockchain.
-    String data; // Data contained in the block.
-    String previousHash; // Hash of the previous block.
-    String hash; // Hash of the current block.
+// Define a Block struct to represent a block in the blockchain.
+#[derive(Debug)]
+pub struct Block {
+    pub index: usize, // Index of the block in the blockchain.
+    pub data: String, // Data contained in the block.
+    pub previous_hash: String, // Hash of the previous block.
+    pub hash: String, // Hash of the current block.
+}
 
-    // Constructor for the Block class.
-    public Block(int index, String data, String previousHash) {
-        this.index = index;
-        this.data = data;
-        this.previousHash = previousHash;
-        this.hash = calculateHash(); // Calculate the hash of the current block.
+impl Block {
+    // Constructor for the Block struct.
+    fn new(index: usize, data: &str, previous_hash: &str) -> Block {
+        let mut block = Block {
+            index,
+            data: data.to_string(),
+            previous_hash: previous_hash.to_string(),
+            hash: String::new(),
+        };
+        block.hash = block.calculate_hash(); // Calculate the hash of the current block.
+        block
     }
 
     // Method to calculate the hash of the block using SHA-256.
-    public String calculateHash() {
-        String input = index + data + previousHash;
-        try {
-            // Create a MessageDigest instance for SHA-256 hashing.
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            // Perform hashing on the input data.
-            byte[] hashBytes = digest.digest(input.getBytes());
-            // Convert the hashed bytes to a hexadecimal string.
-            StringBuilder hashString = new StringBuilder();
-            for (byte b : hashBytes) {
-                hashString.append(String.format("%02x", b));
-            }
-            return hashString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+    fn calculate_hash(&self) -> String {
+        let input = format!("{}{}{}", self.index, self.data, self.previous_hash);
+
+        // Create a Sha256 instance for hashing.
+        let mut hasher = Sha256::new();
+        // Perform hashing on the input data.
+        hasher.update(input.as_bytes());
+        // Convert the hashed bytes to a hexadecimal string.
+        format!("{:x}", hasher.finalize())
     }
 }
 
-// Define a Blockchain class to represent the blockchain structure.
-public class Blockchain {
-    LinkedList<Block> chain; // LinkedList to store the chain of blocks.
+// Define a Blockchain struct to represent the blockchain structure.
+#[derive(Debug)]
+pub struct Blockchain {
+    pub chain: LinkedList<Block>, // LinkedList to store the chain of blocks.
+}
 
-    // Constructor for the Blockchain class.
-    public Blockchain() {
-        chain = new LinkedList<>();
+impl Blockchain {
+    // Constructor for the Blockchain struct.
+    pub fn new() -> Blockchain {
+        let mut blockchain = Blockchain {
+            chain: LinkedList::new(),
+        };
         // Add the genesis block (first block) to the blockchain.
-        chain.add(new Block(0, "Genesis Block", "0"));
+        blockchain.chain.push_back(Block::new(0, "Genesis Block", "0"));
+        blockchain
     }
 
     // Method to add a new block to the blockchain.
-    public void addBlock(String data) {
+    pub fn add_block(&mut self, data: &str) {
         // Get the last block in the chain.
-        Block lastBlock = chain.getLast();
+        let last_block = self.chain.back().unwrap();
         // Create a new block with the given data and previous block's hash.
-        chain.add(new Block(lastBlock.index + 1, data, lastBlock.hash));
-    }
-
-    // Main method to demonstrate the usage of the Blockchain class.
-    public static void main(String[] args) {
-        // Create a new blockchain.
-        Blockchain myBlockchain = new Blockchain();
-        // Add blocks to the blockchain.
-        myBlockchain.addBlock("Block 1");
-        myBlockchain.addBlock("Block 2");
-        myBlockchain.addBlock("Block 3");
-
-        // Iterate through the blockchain and print each block's properties.
-        for (Block block : myBlockchain.chain) {
-            System.out.println("Block index: " + block.index);
-            System.out.println("Data: " + block.data);
-            System.out.println("Previous hash: " + block.previousHash);
-            System.out.println("Hash: " + block.hash);
-            System.out.println();
-        }
+        self.chain.push_back(Block::new(last_block.index + 1, data, &last_block.hash));
     }
 }

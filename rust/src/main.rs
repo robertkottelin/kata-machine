@@ -25,6 +25,7 @@ use queue::Queue;
 //mod two_crystall_balls;
 //mod priority_queue;
 mod vector;
+mod blockchain;
 
 fn main() {
     //    let mut arr = vec![5, 3, 8, 4, 2, 7, 1, 6];
@@ -59,4 +60,21 @@ fn main() {
     vector.pop();
 
     println!("Vector after pop: {:?}", vector);
+
+    // blockchain
+    // Create a new blockchain.
+    let mut my_blockchain = blockchain::Blockchain::new();
+    // Add blocks to the blockchain.
+    my_blockchain.add_block("Block 1");
+    my_blockchain.add_block("Block 2");
+    my_blockchain.add_block("Block 3");
+
+    // Iterate through the blockchain and print each block's properties.
+    for block in my_blockchain.chain.iter() {
+        println!("Block index: {}", block.index);
+        println!("Data: {}", block.data);
+        println!("Previous hash: {}", block.previous_hash);
+        println!("Hash: {}", block.hash);
+        println!();
+    }
 }
